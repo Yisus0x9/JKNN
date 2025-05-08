@@ -1,16 +1,14 @@
 package org.yisus.ia.utils;
 
-
 import org.yisus.ia.model.DataPoint;
 import org.yisus.ia.model.Dataset;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
 
 /**
  * Utilidad para cargar datos desde diferentes fuentes.
@@ -19,7 +17,7 @@ import java.util.Map;
 public class DataLoader {
     private static final DataLoader instance = new DataLoader();
 
-    // Construcctor privado para implementar patrón Singleton
+    // Constructor privado para implementar patrón Singleton
     private DataLoader() {}
 
     /**
@@ -169,5 +167,17 @@ public class DataLoader {
         }
 
         return labelEncoder;
+    }
+
+    /**
+     * Lee datos directamente desde archivos GZIP (para usar con archivos MNIST)
+     *
+     * @param gzipFilePath Ruta al archivo GZIP
+     * @return InputStream para leer los datos descomprimidos
+     * @throws IOException Si hay error al leer el archivo
+     */
+    public static InputStream getInputStreamFromGZIP(String gzipFilePath) throws IOException {
+        return new FileInputStream(gzipFilePath);
+        //return new GZIPInputStream(fis);
     }
 }

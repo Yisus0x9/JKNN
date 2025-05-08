@@ -5,6 +5,7 @@ import org.yisus.ia.model.Dataset;
 import org.yisus.ia.evaluation.PerformanceMetrics;
 import org.yisus.ia.evaluation.ModelEvaluator;
 import org.yisus.ia.model.DataPoint;
+import org.yisus.ia.utils.DataNormalizer;
 import org.yisus.ia.utils.MultiSeriesLineChartCreator;
 
 import java.io.BufferedReader;
@@ -16,9 +17,12 @@ import java.util.List;
 
 public class KNN_IRIS {
         public static void main(String[] args) {
-            String irisFilePath = "C:\\Files\\Cursos\\cursor_optativas\\ml\\PracticasP2\\JKNearestNeighbor\\src\\main\\java\\org\\yisus\\ia\\demo\\iris_dataset.csv";
+            String irisFilePath = "src/main/java/org/yisus/ia/utils/dataset/iris_dataset.csv";
             try {
                 Dataset irisDataset = loadIrisDataset(irisFilePath);
+                DataNormalizer dataNormalizer = new DataNormalizer();
+                dataNormalizer.fit(irisDataset);
+                dataNormalizer.transform(irisDataset);
                 System.out.println("Dataset Iris cargado y normalizado: " + irisDataset.size() + " muestras");
                 int[] kValues = {3, 5, 7, 14};
                 String[] distanceMetrics = {"euclidean", "manhattan", "cosine"};
